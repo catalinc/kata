@@ -1,3 +1,3 @@
 # kata
 
-Code katas.
+Programming practice.
