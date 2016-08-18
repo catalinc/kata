@@ -1,3 +1,3 @@
 # kata
 
-Programming practice.
+Solutions to problems from [CodeKata](http://codekata.com/).
