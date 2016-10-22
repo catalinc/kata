@@ -1,5 +1,4 @@
 import unittest
-import collections
 import time
 
 
@@ -86,6 +85,7 @@ class Test(unittest.TestCase):
     def test_find_all_from_two_words_fast(self):
         ws = self.wd.find_all_from_two_words_fast(6)
         self.assertEqual(22450, len(ws))
+
 
 if __name__ == '__main__':
     unittest.main()
