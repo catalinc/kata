@@ -1,6 +1,5 @@
 import unittest
 import math
-import hashlib
 import bitarray
 import mmh3
 import fnvhash

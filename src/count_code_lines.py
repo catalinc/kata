@@ -41,5 +41,6 @@ class Test(unittest.TestCase):
     def test_count_code_lines_hello_java(self):
         self.assertEqual(5, count_code_lines('Hello.java'))
 
+
 if __name__ == '__main__':
     unittest.main()

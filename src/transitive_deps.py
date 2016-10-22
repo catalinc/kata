@@ -16,7 +16,7 @@ class Dependencies(object):
         to_visit = set(self.graph[clazz])
         while to_visit:
             dep = to_visit.pop()
-            if not dep in visited:
+            if dep not in visited:
                 visited.add(dep)
                 for c in self.graph[dep]:
                     if not (c in visited or c == clazz):
@@ -58,6 +58,7 @@ class Test(unittest.TestCase):
         self.assertEqual(['B', 'C'], dep.dependencies_for('A'))
         self.assertEqual(['A', 'C'], dep.dependencies_for('B'))
         self.assertEqual(['A', 'B'], dep.dependencies_for('C'))
+
 
 if __name__ == '__main__':
     unittest.main()

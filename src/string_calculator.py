@@ -55,7 +55,7 @@ class Test(unittest.TestCase):
         self.assertEqual(9, add("//[,][%]\n2,3%4"))
 
     def test_multiple_one_char_and_longer_than_one_char_delimiters(self):
-        self.assertEqual(28, add("//[,][%][***][##][$$$$][++]\n1%2,3***4##5$$$$6++7"))
+        self.assertEqual(28, add("//[,][%][**][##][$$][++]\n1%2,3**4#5$$6++7"))
 
 
 if __name__ == '__main__':

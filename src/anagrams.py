@@ -31,5 +31,6 @@ class Test(unittest.TestCase):
         r = find_anagrams('wordlist.txt')
         self.assertEqual(20683, len(r))
 
+
 if __name__ == '__main__':
     unittest.main()

@@ -83,5 +83,6 @@ class TestCheckout(unittest.TestCase):
         co.scan("B")
         self.assertEqual(175, co.total)
 
+
 if __name__ == '__main__':
     unittest.main()

@@ -75,5 +75,7 @@ class Test(unittest.TestCase):
             'When not studying nuclear physics, Bambi likes to play beach volleyball.')
         self.assertEqual(
             'aaaaabbbbcccdeeeeeghhhiiiiklllllllmnnnnooopprsssstttuuvwyyyy', sorter.letters)
+
+
 if __name__ == '__main__':
     unittest.main()
