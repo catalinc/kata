@@ -7,7 +7,7 @@ class Dictionary(object):
 
     def __init__(self, filename):
         self.words = collections.defaultdict(list)
-        with open(filename) as infile:
+        with open(filename, 'rt', encoding='latin1') as infile:
             for line in infile:
                 w = line.rstrip()
                 self.words[len(w)].append(w)
@@ -27,8 +27,8 @@ class Dictionary(object):
         while ws:
             last = chain[-1]
             best_next = None
-            best_score = sys.maxint
-            for w in ws:
+            best_score = sys.maxsize
+            for w in sorted(ws):
                 if self.distance(last, w) == 1:
                     score = self.distance(w, t)
                     if score < best_score:
@@ -54,11 +54,11 @@ class Test(unittest.TestCase):
         self.assertEqual(3, self.d.distance('lead', 'gold'))
 
     def test_chain_found(self):
-        self.assertEqual(['cat', 'cot', 'dot', 'dog'],
+        self.assertEqual(['cat', 'cot', 'cog', 'dog'],
                          self.d.word_chain('cat', 'dog'))
         self.assertEqual(['lead', 'load', 'goad', 'gold'],
                          self.d.word_chain('lead', 'gold'))
-        self.assertEqual(['ruby', 'rube', 'robe', 'rode', 'code'],
+        self.assertEqual(['ruby', 'rube', 'cube', 'cuke', 'coke', 'code'],
                          self.d.word_chain('ruby', 'code'))
 
     def test_chain_not_found(self):

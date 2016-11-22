@@ -14,7 +14,7 @@ def sort(s):
 
 def find_anagrams(filename):
     d = collections.defaultdict(list)
-    with open(filename) as input_file:
+    with open(filename, 'rt', encoding='latin1') as input_file:
         for word in input_file:
             word = word.rstrip('\n')
             key = sort(word)

@@ -7,7 +7,7 @@ import string
 class Countsort(object):
 
     def __init__(self, max_val):
-        self.freq = [0 for _ in xrange(max_val)]
+        self.freq = [0 for _ in range(max_val)]
 
     def add(self, n):
         self.freq[n] += 1
@@ -15,7 +15,7 @@ class Countsort(object):
     @property
     def sorted(self):
         L = []
-        for i in xrange(len(self.freq)):
+        for i in range(len(self.freq)):
             v = self.freq[i]
             if v > 0:
                 while v > 0:

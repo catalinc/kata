@@ -5,7 +5,7 @@ import unittest
 
 def count_non_adjacent_ones(n):
     c = 0
-    for i in xrange(2**n):
+    for i in range(2**n):
         if not has_adjacent_ones(i):
             c += 1
     return c

@@ -10,7 +10,8 @@ def max_temp_spread(name):
     with open(name, 'r') as input_file:
         for line in input_file:
             line = line.strip()
-            if not line or re.match('^\s*Dy', line) or re.match('^\s*mo', line):
+            if not line or re.match('^\s*Dy', line) \
+               or re.match('^\s*mo', line):
                 continue
             data = re.split('\s+', line)
             day = data[0]
@@ -24,7 +25,7 @@ def max_temp_spread(name):
 
 
 def min_for_against_goals_spread(name):
-    the_team, min_diff = None, sys.maxint
+    the_team, min_diff = None, sys.maxsize
     with open(name, 'r') as input_file:
         for line in input_file:
             line = line.strip()
@@ -41,7 +42,8 @@ def min_for_against_goals_spread(name):
     return the_team
 
 
-def data_munging(name, entry_pos, first_pos, second_pos, skip_patterns=(), cmp=lambda a, b: a > b):
+def data_munging(name, entry_pos, first_pos,
+                 second_pos, skip_patterns=(), cmp=lambda a, b: a > b):
     best_entry, best_value = None, None
     with open(name, 'r') as input_file:
         for line in input_file:
@@ -81,7 +83,8 @@ class DataMungingTest(unittest.TestCase):
 
     def test_data_munging_min_for_against_goals_spread(self):
         self.assertEqual('Aston_Villa', data_munging(
-            'football.dat', 1, 6, 8, skip_patterns=('^Team', '^--'), cmp=lambda a, b: a < b))
+            'football.dat', 1, 6, 8,
+            skip_patterns=('^Team', '^--'), cmp=lambda a, b: a < b))
 
 
 if __name__ == '__main__':

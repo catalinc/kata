@@ -12,7 +12,8 @@ class Game:
                 last = Frame()
                 self.frames.append(last)
             else:
-                if len(last.rolls) == 3 or not (last.is_spare() or last.is_strike()):
+                if len(last.rolls) == 3 \
+                   or not (last.is_spare() or last.is_strike()):
                     raise ValueError('no more rolls allowed')
         last.roll(pins)
 
@@ -66,10 +67,10 @@ class TestBowlingGame(unittest.TestCase):
 
     def test_roll_more_than_allowed(self):
         with self.assertRaises(ValueError) as context:
-            for i in xrange(0, 11):
+            for i in range(0, 11):
                 self.game.roll(1)
                 self.game.roll(1)
-        self.assertTrue('no more rolls allowed' in context.exception)
+        self.assertTrue('no more rolls allowed' in str(context.exception))
 
     def test_score_regular_game(self):
         rolls = [1, 4,
@@ -97,3 +98,4 @@ class TestBowlingGame(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+

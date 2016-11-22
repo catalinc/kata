@@ -16,13 +16,13 @@ class WordDictionary(object):
 
     def __init__(self, filename):
         self._dictionary = set()
-        with open(filename) as input_file:
+        with open(filename, 'rt', encoding='latin1') as input_file:
             for line in input_file:
                 line = line.rstrip('\n').lower()
                 self._dictionary.add(line)
 
     def is_two_words(self, s):
-        for i in xrange(1, len(s)):
+        for i in range(1, len(s)):
             if self.is_word(s[0:i]) and self.is_word(s[i:]):
                 return True
 
@@ -31,11 +31,11 @@ class WordDictionary(object):
 
     def find_all_from_two_words(self, size=6):
         L = [w for w in self._dictionary if len(w) < size]
-        L.sort(cmp=lambda a, b: len(a) - len(b))
+        L.sort(key=lambda x: len(x))
         r = set()
-        for i in xrange(0, len(L)):
+        for i in range(0, len(L)):
             p = L[i]
-            for j in xrange(i, len(L)):
+            for j in range(i, len(L)):
                 s = L[j]
                 n = len(p) + len(s)
                 if n < size:
