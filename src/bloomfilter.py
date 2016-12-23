@@ -39,7 +39,8 @@ class BloomFilter(object):
 
     def _hashes(self, s):
         for i in range(1, self.k + 1):
-            yield (fnvhash.fnv1a_32(bytes(s, 'utf-8')) + i * mmh3.hash(s)) % self.m
+            yield (fnvhash.fnv1a_32(bytes(s, 'utf-8')) +
+                   i * mmh3.hash(s)) % self.m
 
 
 class SpellChecker(object):
