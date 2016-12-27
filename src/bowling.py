@@ -2,6 +2,7 @@ import unittest
 
 
 class Game:
+
     def __init__(self):
         self.frames = []
 
@@ -12,24 +13,26 @@ class Game:
                 last = Frame()
                 self.frames.append(last)
             else:
-                if len(last.rolls) == 3 \
-                   or not (last.is_spare() or last.is_strike()):
+                if len(last.rolls) == 2 and last.pins() < 10:
                     raise ValueError('no more rolls allowed')
         last.roll(pins)
 
     def score(self):
         score = 0
         for i in range(0, len(self.frames)):
-            f = self.frames[i]
-            score += f.pins()
-            if f.is_spare() or f.is_strike():
-                if i == 9:
-                    score += f.rolls[2]
-                else:
+            frame = self.frames[i]
+            score += frame.pins()
+            if frame.is_spare() or frame.is_strike():
+                if i < 9:
                     f_next = self.frames[i + 1]
                     score += f_next.rolls[0]
-                    if f.is_strike():
-                        score += f_next.rolls[1]
+                    if frame.is_strike():
+                        if len(f_next.rolls) >= 2:
+                            score += f_next.rolls[1]
+                        else:
+                            f_next = self.frames[i + 2]
+                            score += f_next.rolls[0]
+
         return score
 
     def _last_frame(self):
@@ -39,6 +42,7 @@ class Game:
 
 
 class Frame:
+
     def __init__(self):
         self.rolls = []
 
@@ -46,19 +50,20 @@ class Frame:
         self.rolls.append(pins)
 
     def is_complete(self):
-        return len(self.rolls) in (2, 3)
+        return self.is_strike() or len(self.rolls) == 2
 
     def is_strike(self):
-        return self.rolls[0] == 10 or self.rolls[1] == 10
+        return len(self.rolls) == 1 and self.rolls[0] == 10
 
     def is_spare(self):
-        return not self.is_strike() and self.pins() == 10
+        return len(self.rolls) == 2 and self.pins() == 10
 
     def pins(self):
-        return self.rolls[0] + self.rolls[1]
+        return sum(self.rolls)
 
 
 class TestBowlingGame(unittest.TestCase):
+
     def setUp(self):
         self.game = Game()
 
@@ -77,25 +82,23 @@ class TestBowlingGame(unittest.TestCase):
                  4, 5,
                  6, 4,
                  5, 5,
-                 10, 0,
+                 10,
                  0, 1,
                  7, 3,
                  6, 4,
-                 10, 0,
+                 10,
                  2, 8, 6]
-        for r in rolls:
-            self.game.roll(r)
+        for pins in rolls:
+            self.game.roll(pins)
         self.assertEqual(133, self.game.score())
 
     def test_score_perfect_game(self):
         for _ in range(0, 9):
             self.game.roll(10)
-            self.game.roll(0)
         for _ in range(0, 3):
             self.game.roll(10)
-        self.assertTrue(300, self.game.score())
+        self.assertEqual(300, self.game.score())
 
 
 if __name__ == '__main__':
     unittest.main()
-
